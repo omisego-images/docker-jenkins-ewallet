@@ -28,5 +28,15 @@ RUN set -xe && \
     apt-get clean && \
     rm -rf /usr/local/src/libsodium
 
-RUN mix local.hex --force && \
+RUN set -xe && \
+    mix local.hex --force && \
     mix local.rebar --force
+
+RUN set -xe && \
+    rm -f /etc/apt/sources.list.d/chris-lea-node_js-stretch.list && \
+    curl -fsL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+    curl -fsL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && \
+    apt-get install -y nodejs yarn
