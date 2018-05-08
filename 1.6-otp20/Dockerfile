@@ -33,7 +33,8 @@ RUN set -xe && \
     mix local.rebar --force
 
 RUN set -xe && \
-    rm -f /etc/apt/sources.list.d/chris-lea-node_js-stretch.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends apt-transport-https && \
     curl -fsL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     curl -fsL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
